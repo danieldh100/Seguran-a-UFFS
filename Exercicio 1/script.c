@@ -35,7 +35,7 @@ int main(){
      arq = fopen("Descifrado.txt","w");
 
      for(i=0;i<strlen(string);i++){ // Descriptografia
-     	putc((string[i]-chave)%256,arq);
+     	putc((string[i]-chave+256)%256,arq);
      }
      fclose(arq);
   }
