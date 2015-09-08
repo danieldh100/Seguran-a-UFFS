@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX 12345
+
+int main(){
+  int tamanho=0,i=0;
+  char text[MAX],chave[MAX],cont[MAX];
+
+  FILE *leia;
+  FILE *desc;
+  leia = fopen("Cifrado.txt","r");
+  desc = fopen("Descigrado.txt","w");
+  
+  tamanho = fread(text,sizeof(char),MAX,leia);
+  printf("%d\n",tamanho);
+  
+  printf("Digite a chave para descifrar: ");
+  fgets(chave, MAX, stdin);
+  chave[strlen(chave)-1]='\0'; 
+  
+  while((int)strlen(chave)<(int)strlen(text)){ // Replica a chave no tamanho do texto
+       chave[strlen(chave)]=chave[i];
+       i++;
+  }
+  printf("%s\n",chave);
+  for(i=0;i<strlen(text);i++){
+     cont[i]=(text[i]-chave[i%strlen(chave)])%256;
+  }
+   fwrite(cont,sizeof(char),strlen(text),desc);
+
+
+  fclose(leia);
+  fclose(desc);
+  return 0;
+}
